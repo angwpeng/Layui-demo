@@ -45,11 +45,11 @@ public class BooksDaoImpl implements BooksDao {
     }
 
     @Override
-    public List<Books> findAllBooks(int startNum) {
+    public List<Books> findAllBooks(int startNum, Integer limit) {
         List<Books> list = new ArrayList<>();
         //编写sql
-        String sql = "select * from books b,category c where b.cid = c.cid limit ?,3";
-        Object[] obj = {startNum};
+        String sql = "select * from books b,category c where b.cid = c.cid limit ?,?";
+        Object[] obj = {startNum,limit};
         //调用工具类里查询的方法
         rs = JDBCUtil.exeQuery(sql,obj);
         //处理结果集
@@ -64,7 +64,7 @@ public class BooksDaoImpl implements BooksDao {
                     rs.getString("description"),
                     rs.getInt("stock"),
                     new Category(rs.getInt("cid"),
-                            rs.getString("name"),
+                            rs.getString("cname"),
                             rs.getString("description"))
                 );
                 //实体类存集合
@@ -98,7 +98,7 @@ public class BooksDaoImpl implements BooksDao {
                         rs.getString("description"),
                         rs.getInt("stock"),
                         new Category(rs.getInt("cid"),
-                                rs.getString("name"),
+                                rs.getString("cname"),
                                 rs.getString("description"))
                 );
                 //实体类存集合
@@ -129,5 +129,19 @@ public class BooksDaoImpl implements BooksDao {
             JDBCUtil.close(conn,pst,rs);
         }
         return  count;
+    }
+
+    @Override
+    public int del(String[] bid) {
+        String sql = "delete from books where bid = ?";
+        int k=0;
+        for (int i = 0; i < bid.length; i++) {
+            Object[] obj ={bid[i]};
+            int j = JDBCUtil.exechangc(sql,obj);
+            k++;
+        }
+
+
+        return k;
     }
 }

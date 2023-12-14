@@ -19,12 +19,12 @@ public class BooksServiceImpl implements BooksService {
     }
 
     @Override
-    public List<Books> findAllBooks(String currentPage) {
+    public List<Books> findAllBooks(String page,String limit) {
         //调用dao层方法
         BooksDao booksDao = new BooksDaoImpl();
         //计算分页查询时候的起始值
-        int startNum = (Integer.parseInt(currentPage)-1)*3;
-        return booksDao.findAllBooks(startNum);
+        int startNum = (Integer.parseInt(page)-1)*Integer.valueOf(limit);
+        return booksDao.findAllBooks(startNum,Integer.valueOf(limit));
     }
 
     @Override
@@ -39,9 +39,20 @@ public class BooksServiceImpl implements BooksService {
     @Override
     public int count() {
         BooksDao booksDao = new BooksDaoImpl();
-        //计算页数
+
         int count = booksDao.count();
-        count = count%3==0?count/3:count/3+1;
+
         return count;
+    }
+
+    @Override
+    public boolean del(String[] bid) {
+        BooksDao booksDao = new BooksDaoImpl();
+        int i = booksDao.del(bid);
+        boolean boo = false;
+        if(i>0){
+            boo = true;
+        }
+        return boo;
     }
 }

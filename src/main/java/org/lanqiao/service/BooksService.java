@@ -9,9 +9,11 @@ public interface BooksService {
     List<Category> findAllType();
 
 
-    List<Books> findAllBooks(String currentPage);
+    List<Books> findAllBooks(String page,String limit);
 
     List<Books> findByCid(String cid);
 
     int count();
+
+    boolean del(String[] bid);
 }

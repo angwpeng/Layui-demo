@@ -9,9 +9,11 @@ public interface BooksDao {
     List<Category> findAllType();
 
 
-    List<Books> findAllBooks(int startNum);
+    List<Books> findAllBooks(int startNum, Integer limit);
 
     List<Books> findByCid(String cid);
 
     int count();
+
+    int del(String[] bid);
 }

@@ -6,4 +6,16 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+    <filter>
+        <filter-name>Encoding</filter-name>
+        <filter-class>org.lanqiao.filter.EncodingFilter</filter-class>
+        <init-param>
+            <param-name>Encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>Encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>
